@@ -3,14 +3,11 @@ from PIL import Image, ImageTk
 import tkinter as tk
 import random
 from tkinter import ttk
-#from tkinter import messagebox
-#import seaborn as sns
-#from collections import Counter
-#import wx
 import platform
 import unicodedata
 from unidecode import unidecode
 import sys
+from os.path import dirname
 
 class Flag:
     def __init__(self):
@@ -44,59 +41,6 @@ class Flag:
         label1.image = tk_img
         label1.config(image=tk_img)
 
-    '''
-    def normalize_colors(self):
-
-
-        def normalize(input_path, output_path, palette_colors):
-            img = Image.open(input_path).convert("RGB")
-
-            pixels = img.load()
-
-            width, height = img.size
-            tolerance = 9
-            for y in range(height):
-                for x in range(width):
-                    r, g, b = pixels[x, y]
-                    if r < 200 and abs(r - g) <= tolerance and abs(r - b) <= tolerance and abs(g - b) <= tolerance:
-                        pixels[x, y] = (0, 0, 0)
-
-            img.save('/home/jacks/tests/flags/normalized_flag_icons/'+str(input_path.split('/')[-1]))
-
-            img = Image.open('/home/jacks/tests/flags/normalized_flag_icons/'+str(input_path.split('/')[-1])).convert("RGB")
-
-            palette_img = Image.new("P", (1, 1))
-            
-            flat_palette = []
-            for color in palette_colors:
-                flat_palette.extend(color)
-
-            flat_palette.extend([0, 0, 0] * (256 - len(palette_colors)))
-            
-            palette_img.putpalette(flat_palette)
-
-            quantized = img.quantize(palette=palette_img, dither=Image.Dither.NONE)
-            quantized.save(output_path, format="PNG")
-
-        custom_palette = [
-            (0, 0, 0),       # Black
-            (255, 255, 255), # White
-            (218, 18, 26),     # Red
-            (0, 140, 0),     # Green
-            (15, 24, 177),     # Blue
-            (252, 221, 9),   # Yellow
-            (117, 170, 219),   # Cyan
-            (146, 22, 160),    # Purple
-            (127, 66, 0),   # Brown
-            (254, 129, 23)    # Orange
-        ]
-        
-
-
-        for i in dir_list:
-            normalize("/home/jacks/tests/flags/flag_icons/"+i, "/home/jacks/tests/flags/normalized_flag_icons/"+i, custom_palette)
-    '''
-
     def reset(self):
         self.__init__()
         self.show_image()
@@ -119,7 +63,6 @@ class Flag:
         label.config(image=tk_img)
         #MAKE SAME CHANCE FOR ALL
         if flags[a.text_variable.get()] == self.territory:
-            #messagebox.showinfo('Answer',f'Correct! {guesses} guesses')
             self.reset()
             a.text_variable.set('')
 
@@ -365,7 +308,7 @@ root.config(menu=options)
 button.grid()'''
 
 base_dir = os.getcwd()
-dir_list = sorted(os.listdir('/home/jacks/tests/flags/flag_icons'))
+dir_list = sorted(os.listdir(dirname + '/flags/flag_icons'))
 
 standard = ['Andorra','United Arab Emirates','Afghanistan','Antigua and Barbuda','Anguilla','Albania','Armenia','Angola','Antarctica','Argentina','American Samoa','Austria','Australia','Aruba','Åland','Azerbaijan','Bosnia and Herzegovina','Barbados','Bangladesh','Belgium','Burkina Faso','Bulgaria','Bahrain','Burundi','Benin','Saint Barthélemy','Bermuda','Brunei','Bolivia','Bonaire','Brazil','Bahamas','Bhutan','Bouvet Island','Botswana','Belarus','Belize','Canada','Cocos (Keeling) Islands','Democratic Republic of the Congo','Central African Republic','Republic of the Congo','Switzerland',"Côte d'Ivoire",'Cook Islands','Chile','Cameroon','China','Colombia','Costa Rica','Cuba','Cabo Verde','Curaçao','Christmas Island','Cyprus','Czech Republic','Germany','Djibouti','Denmark','Dominica','Dominican Republic','Algeria','Ecuador','Estonia','Egypt','Sahrawi Arab Democratic Republic','Eritrea','Spain','Ethiopia','Finland','Fiji','Falkland Islands','Federated States of Micronesia','Faroe Islands','France','Gabon','England','Northern Ireland','Scotland','Wales','United Kingdom','Grenada','Georgia','French Guiana','Guernsey','Ghana','Gibraltar','Greenland','The Gambia','Guinea','Guadeloupe','Equatorial Guinea','Greece','South Georgia and the South Sandwich Islands','Guatemala','Guam','Guinea-Bissau','Guyana','Hong Kong','Heard and McDonald Islands','Honduras','Croatia','Haiti','Hungary','Indonesia','Ireland','Israel','Isle of Man','India','British Indian Ocean Territory','Iraq','Iran','Iceland','Italy','Jersey','Jamaica','Jordan','Japan','Kenya','Kyrgyzstan','Cambodia','Kiribati','Comoros','Saint Kitts and Nevis','North Korea','South Korea','Kuwait','Cayman Islands','Kazakhstan','Laos','Lebanon','Saint Lucia','Liechtenstein','Sri Lanka','Liberia','Lesotho','Lithuania','Luxembourg','Latvia','Libya','Morocco','Monaco','Moldova','Montenegro','Madagascar','Marshall Islands','North Macedonia','Mali','Myanmar','Mongolia','Macau','Northern Mariana Islands','Martinique','Mauritania','Montserrat','Malta','Mauritius','The Maldives','Malawi','Mexico','Malaysia','Mozambique','Namibia','New Caledonia','Niger','Norfolk Island','Nigeria','Nicaragua','The Netherlands','Norway','Nepal','Nauru','Niue','New Zealand','Oman','Panama','Peru','French Polynesia','Papua New Guinea','The Philippines','Pakistan','Poland','Saint Pierre and Miquelon','Pitcairn Islands','Puerto Rico','Palestine','Portugal','Palau','Paraguay','Qatar','Réunion','Romania','Serbia','Russia','Rwanda','Saudi Arabia','Solomon Islands','Seychelles','Sudan','Sweden','Singapore','Saint Helena','Slovenia','Svalbard and Jan Mayen','Slovakia','Sierra Leone','San Marino','Senegal','Somalia','Suriname','South Sudan','São Tomé and Príncipe','El Salvador','Sint Maarten','Syria','Eswatini','Turks and Caicos Islands','Chad','French Southern and Antarctic Lands','Togo','Thailand','Tajikistan','Tokelau','Timor-Leste','Turkmenistan','Tunisia','Tonga','Türkiye','Trinidad and Tobago','Tuvalu','Taiwan','Tanzania','Ukraine','Uganda','United States of America','Uruguay','Uzbekistan','Vatican City','Saint Vincent and the Grenadines','Venezuela','British Virgin Islands','United States Virgin Islands','Vietnam','Vanuatu','Wallis and Futuna','Samoa','Kosovo','Yemen','Mayotte','South Africa','Zambia','Zimbabwe']
 historic = ['Belgian Congo','Burgenland','China (1912-1923)','Federated Malay States','Lesotho (1966-1987)','Manchukuo','Rhodesia','South Vietnam','Surinam (1959-1975)']
@@ -408,61 +351,17 @@ for y in flag_categories_list:
         flag_names_images[flag_names[count]] = x
         count += 1
 
-#flags = {flag_names[i]: x for i,x in enumerate(sorted(os.listdir(base_dir+'/flag_icons'+y))) for y in flag_categories_list}
 
 flag_names = standard + historic + historic_shapes + modern_shapes
 a = AutoFillCombobox(root, sorted(flag_names, key = lambda x: unicodedata.normalize('NFD',x)), entry_width=20, listbox_length=len(flag_names))
 a.pack()
 
-#tk.mainloop()
 
-'''
-combobox = ttk.Combobox(root, values=sorted(flag_names))
-combobox.pack()
-combobox.bind("<<ComboboxSelected>>", lambda event: flag.guess(label))
-root.config(cursor="")
-'''
-#for i in sorted(list(flags.values()),reverse=True):
-
-#guesses = 0
 label = tk.Label(root)
 label.place(relx=.3,rely=.5)
 
 flag = Flag()
 flag.show_image()
-'''
-def get_colors():
-    all_rgbs = []
-
-    for i in list(flags.values())[-4:-3]:
-        image = Image.open('/home/jacks/tests/flags/flag_icons/'+i)
-        if image.mode != 'RGB':
-            image = image.convert('RGB')
-        
-        width, height = image.size
-
-        pixels = list(image.getdata())
-
-        # Reshape into a 2D array for easy access
-        pixel_array = np.array(pixels).reshape((height, width, 3))
-
-        for y in range(height):
-            for x in range(width):
-                r, g, b = pixel_array[y, x]
-                all_rgbs.append(f'{r}, {g}, {b}')
-        
-    colors = Counter(all_rgbs)
-    print(sorted([i for i in colors.items() if sum([int(j) for j in i[0].split(',')][:2]) > 300], key=lambda x: x[1]))
-
-
-get_colors()
-'''
 
 if __name__ == "__main__":
     options.mainloop()
-
-'''
-count = Counter(list([Image.open(base_dir+'/flag_icons/'+i).size[0] for i in sorted(list(flags.values()),reverse=True)]))
-print(sum([i[0]*i[1] for i in count.items()])/sum([i for i in count.values()]))
-'''
-#print(flags)
