@@ -1,4 +1,4 @@
 git clone https://github.com/jacksonmeans/flaggle.git  
 cd flaggle  
-pip install requirements.txt  
+pip install -r requirements.txt  
 python app.py
