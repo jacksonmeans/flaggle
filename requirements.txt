@@ -1,5 +1,3 @@
-PIL
-tkinter
-platform
-unicodedata
-unidecode
+pillow==12.3.0
+unicode==2.9
+Unidecode==1.4.0
