@@ -1,0 +1,6 @@
+os
+PIL
+tkinter
+platform
+unicodedata
+unidecode
